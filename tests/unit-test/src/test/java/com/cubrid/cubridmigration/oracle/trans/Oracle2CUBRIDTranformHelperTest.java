@@ -408,8 +408,8 @@ class Oracle2CUBRIDTranformHelperTest {
                     .isEqualTo("X'0A1B'");
         }
 
-        @ParameterizedTest(name = "[{index}] {0} -> X''")
-        @DisplayName("an empty HEXTORAW default becomes an empty CUBRID hex literal")
+        @ParameterizedTest(name = "[{index}] {0} -> no default")
+        @DisplayName("an empty HEXTORAW default is removed")
         @ValueSource(
                 strings = {
                     "HEXTORAW('')",
@@ -417,9 +417,8 @@ class Oracle2CUBRIDTranformHelperTest {
                     "HEXTORAW( '' )",
                     "hextoraw ( '' )",
                 })
-        void emptyHexToRawDefault_becomesEmptyHexLiteral(String oracleDefault) {
-            assertThat(adjusted("RAW", "bit varying", oracleDefault).getDefaultValue())
-                    .isEqualTo("X''");
+        void emptyHexToRawDefault_isRemoved(String oracleDefault) {
+            assertThat(converted("RAW", 0, oracleDefault).getDefaultValue()).isNull();
         }
 
         private Column converted(String sourceType, int precision, String oracleDefault) {

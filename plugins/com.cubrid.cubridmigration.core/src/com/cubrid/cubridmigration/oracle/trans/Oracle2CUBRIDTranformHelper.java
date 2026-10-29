@@ -509,6 +509,9 @@ public class Oracle2CUBRIDTranformHelper extends DBTransformHelper {
         Matcher hextorawMatcher = HEXTORAW_PATTERN.matcher(trimmed);
         if (hextorawMatcher.matches()) {
             String hex = hextorawMatcher.group(1);
+            if (hex.isEmpty()) {
+                return null;
+            }
             return "X'" + hex + "'";
         }
         return defaultValue;
