@@ -376,7 +376,7 @@ class Oracle2CUBRIDTranformHelperTest {
                     "empty_blob ( )",
                 })
         void emptyBlobDefault_isRemovedForBitVarying(String oracleDefault) {
-            assertThat(adjusted("BLOB", "bit varying", oracleDefault).getDefaultValue()).isNull();
+            assertThat(converted("BLOB", 0, oracleDefault).getDefaultValue()).isNull();
         }
 
         @ParameterizedTest(name = "[{index}] {0} -> no default")
@@ -389,7 +389,7 @@ class Oracle2CUBRIDTranformHelperTest {
                     "empty_clob ( )",
                 })
         void emptyClobDefault_isRemoved(String oracleDefault) {
-            assertThat(adjusted("CLOB", "varchar", oracleDefault).getDefaultValue()).isNull();
+            assertThat(converted("CLOB", 0, oracleDefault).getDefaultValue()).isNull();
         }
 
         @ParameterizedTest(name = "[{index}] {0} -> X'0A1B'")
